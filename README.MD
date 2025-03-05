@@ -1,7 +1,7 @@
 # Agent Descriptor Specification
 
 ## Overview
-This specification defines the attributes of an **autonomous agent** in an agentic system. Inspired by the concept of Data Product descriptors, this standard aims to enable **consistent definition, governance, and observability** of AI-driven agents in a structured format.
+This specification defines the attributes of an **autonomous agent** in an agentic system. This specification aims to enable **consistent definition, governance, and observability** of AI-driven agents in a structured format.
 
 ## Schema Structure
 The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy documentation and validation.
