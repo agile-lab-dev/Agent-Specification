@@ -1,0 +1,232 @@
+openapi: 3.0.0
+info:
+  title: Agent Descriptor Specification
+  description: Defines the attributes of an autonomous agent in an agentic system.
+  version: 1.0.0
+
+components:
+  schemas:
+    AgentDescriptor:
+      type: object
+      required:
+        - id
+        - name
+        - domain
+        - version
+        - status
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the agent.
+          example: urn:agent:finance:trading_agent:1
+        name:
+          type: string
+          description: Human-readable name of the agent.
+          example: My Trading Agent
+        fullyQualifiedName:
+          type: string
+          description: Fully qualified name of the agent.
+          example: My Trading Agent
+        description:
+          type: string
+          description: Describes the agent’s purpose and role.
+        domain:
+          type: string
+          description: The domain in which the agent operates.
+          example: finance
+        version:
+          type: string
+          description: The version of the agent.
+          example: 1.0.0
+        environment:
+          type: string
+          description: Execution environment (e.g., development, production).
+          example: production
+        agentOwner:
+          type: string
+          description: The primary owner of the agent.
+        agentOwnerDisplayName:
+          type: string
+          description: Display name of the owner.
+        email:
+          type: string
+          description: Contact email for the agent.
+          example: mailto:support@corp.com
+        status:
+          type: string
+          description: Deployment status of the agent.
+          example: ACTIVE
+        agentGoal:
+          type: string
+          description: optimize returns and risk
+          example: Try to keep the balance between a yield return of 10% and a portfolio volatility no more than 3%
+        valueGeneration:
+          type: string
+          description: In which way this Agent generates value for the organization
+          example: ["DecisionMaking", "Derisking", "ProcessAutomation"]
+          enum:
+            - DecisionMaking
+            - Derisking
+            - ProcessAutomation
+        executionMode:
+          type: string
+          description: Mode of execution (e.g., autonomous, human in the loop).
+          example: ["Autonoumous","Human in the Loop"]
+          enum:
+            - Autonoumous
+            - Human in the Loop
+        decisionFrequency:
+          type: string
+          description: How often the agent takes decisions
+          example: ["Reactive","Scheduled", "RealTime"]
+          enum:
+            - Reactive
+            - Scheduled
+            - RealTime
+        agencyLevel:
+          type: string
+          description: How big is the agency for this agent
+          example: ["Total","Rule Constrained", "Workflow Constrained"]
+          enum:
+            - Total
+            - Rule Constrained
+            - Workflow Constrained
+        learningCapability:
+          type: string
+          description: How the agent will learn on the way
+          example: ["None","Reinforcement Learning", "Fine Tuning"]
+          enum:
+            - None
+            - Reinforcement Learning
+            - Fine Tuning
+        physicalEndpoint:
+          type: object
+          description: Defines where external systems or users can communicate with the agent.
+          properties:
+            apiUrl:
+              type: string
+              description: The primary API URL for interacting with the agent.
+              example: "https://api.tradingagent.com/v1"
+            authenticationMethod:
+              type: string
+              description: Type of authentication required.
+              example: "OAuth2"
+            supportedMethods:
+              type: array
+              description: List of HTTP methods supported.
+              items:
+                type: string
+              example: ["GET", "POST", "PUT", "DELETE"]
+        dependencies:
+          type: array
+          description: List of other agents this agent relies on.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              description:
+                type: string
+        components:
+          type: array
+          description: Different components that make up the agent, including reasoners, tools, LLMs, and local memory.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Unique identifier for the component.
+              name:
+                type: string
+                description: Human-readable name of the component.
+              kind:
+                type: string
+                description: Type of component (e.g, tool, LLM).
+                example: Tool
+                enum:
+                - Tool
+                - LLM
+                - Memory
+                - Guardrail
+              version:
+                type: string
+                description: Version of the component.
+              description:
+                type: string
+                description: Describes the purpose of the component.
+              dependencies:
+                type: array
+                description: Other components or external resources required.
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+              specific:
+                type: object
+                description: Any domain-specific metadata related to the agent.
+                additionalProperties: true
+        audit:
+          type: object
+          description: Monitoring and logging details.
+          properties:
+            healthCheck:
+              type: string
+              description: Automated monitoring endpoint.
+              example: "https://api.tradingagent.com/v1/health"
+            decisionLogs:
+              type: string
+              description: Endpoint to retrieve decision logs.
+              example: "https://api.tradingagent.com/v1/logs"
+            anomalyDetection:
+              type: string
+              description: API endpoint for anomaly detection.
+              example: "https://api.tradingagent.com/v1/anomalies"
+        knowledgeBases:
+          type: array
+          description: Where this agent reads data from.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              sourceType:
+                type: string
+                enum:
+                  - Structured
+                  - Unstructured
+                  - Streaming
+                  - Historical
+                description: Type of data source.
+                example: "Structured"
+              description:
+                type: string
+              endpoint:
+                type: string
+                description: API or database connection string.
+                example: "https://datawarehouse.company.com/api"
+        securityInfo:
+          type: object
+          description: Security and compliance details.
+          properties:
+            visibility:
+              type: string
+              example: Private
+            confidentiality:
+              type: string
+              example: High
+            gdprSensitive:
+              type: boolean
+              example: true
+        specific:
+          type: object
+          description: Any domain-specific metadata related to the agent.
+          additionalProperties: true

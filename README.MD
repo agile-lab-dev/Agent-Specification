@@ -1,15 +1,12 @@
 # Agent Descriptor Specification
 
 ## Overview
-This specification defines the attributes of an **autonomous agent** in an agentic system. Inspired by the concept of Data Product descriptors, this standard aims to enable **consistent definition, governance, and observability** of AI-driven agents in a structured format.
-
-## Schema Structure
-The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy documentation and validation.
+This specification defines the attributes of an **autonomous agent** in an agentic system. It provides a structured format for defining **capabilities, dependencies, execution modes, governance, and security** for AI-driven agents.
 
 ## Key Attributes
 
-### Identity & Ownership
-- `id` *(string, required)* – Unique identifier for the agent. 
+### **Identity & Ownership**
+- `id` *(string, required)* – Unique identifier for the agent.
 - `name` *(string, required)* – Human-readable name of the agent.
 - `fullyQualifiedName` *(string)* – Fully qualified name of the agent.
 - `description` *(string)* – Describes the agent’s purpose and role.
@@ -17,81 +14,229 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
 - `version` *(string, required)* – The version of the agent.
 - `environment` *(string)* – Execution environment (development, production, etc.).
 - `agentOwner` *(string)* – The primary owner of the agent.
-- `agentOwnerDisplayName` *(string)* – Display name of the owner.
-- `email` *(string)* – Contact email for support.
 
-### Agent Behavior & Capabilities
-- `kind` *(string)* – Type of agent (e.g., decision-making, execution, monitoring).
-- `capabilities` *(array)* – List of functionalities the agent supports.
-- `executionMode` *(string)* – Mode of execution (e.g., autonomous, event-driven, manual execution).
-- `dependencies` *(array)* – Data sources or other agents this agent depends on.
+### **Business Context & Goals**
+- `agentGoal` *(string)* – The primary goal the agent supports.
+- `valueGeneration` *(array)* – How this agent generates business value (DecisionMaking, Derisking, ProcessAutomation).
+- `executionMode` *(string)* – Defines how the agent operates (Autonomous, Human in the Loop).
+- `decisionFrequency` *(string)* – How often the agent makes decisions (Reactive, Scheduled, RealTime).
+- `agencyLevel` *(string)* – Defines the autonomy level of the agent (Total, Rule Constrained, Workflow Constrained).
+- `learningCapability` *(string)* – Learning approach (None, Reinforcement Learning, Fine Tuning).
 
-### Observability & Monitoring
-- `observability` *(object)* – Includes logs, health checks, and anomaly detection.
-  - `healthCheck` – Automated monitoring status.
-  - `decisionLogs` – Storage location for decision-making logs.
-  - `anomalyDetection` – Indicates whether anomaly detection is enabled.
+### **Technical Configuration**
+- `physicalEndpoint` *(object)* – Defines where and how external systems interact with the agent.
+  - `apiUrl` *(string)* – API endpoint for agent interaction.
+  - `authenticationMethod` *(string)* – Authentication method required (OAuth2, API Key, etc.).
+  - `supportedMethods` *(array)* – Supported HTTP methods (GET, POST, PUT, DELETE).
 
-### Security & Compliance
-- `securityInfo` *(object)* – Security and governance attributes.
-  - `visibility` – Defines who can see the agent (e.g., Public, Department, Private).
-  - `confidentiality` – Classification level (e.g., Confidential, Restricted).
-  - `gdpr` *(boolean)* – Indicates whether GDPR compliance is required.
+### **Dependencies & Components**
+- `dependencies` *(array)* – Other agents or services this agent depends on.
+- `components` *(array)* – Different modules within the agent, such as Reasoners, Tools, LLMs, Memory, and Guardrails.
 
-### Domain-Specific Metadata
-- `specific` *(object)* – Custom metadata related to the agent, such as model version, optimization frequency, or additional configurations.
+### **Audit & Observability**
+- `audit` *(object)* – Monitoring and logging details.
+  - `healthCheck` *(string)* – API endpoint for health status.
+  - `decisionLogs` *(string)* – API endpoint for retrieving decision logs.
+  - `anomalyDetection` *(string)* – API endpoint for anomaly monitoring.
 
-## Example Descriptor
+### **Knowledge Bases**
+- `knowledgeBases` *(array)* – Data sources the agent uses.
+  - `sourceType` *(string)* – Defines if the data source is Structured, Unstructured, Streaming, or Historical.
+  - `endpoint` *(string)* – API or database connection for the knowledge base.
+
+### **Security & Compliance**
+- `securityInfo` *(object)* – Security details including data visibility, confidentiality, and GDPR compliance.
+
+## Example Agent Descriptor
+
 ```yaml
-id: urn:agent:trading:market_strategy:1
-name: Market Strategy Agent
-fullyQualifiedName: Trading AI Market Strategy Agent
+id: urn:agent:finance:trading_agent:1
+name: Market Strategy Trading Agent
+fullyQualifiedName: AI Trading Market Strategy Agent
 description: Determines trading strategies based on market conditions.
-domain: trading
+domain: finance
 version: 1.2.0
 environment: production
 agentOwner: john_doe@corp.com
 agentOwnerDisplayName: John Doe
 email: mailto:trading_team@corp.com
 status: ACTIVE
-capabilities:
-  - DecisionMaking
-  - RiskManagement
-executionMode: event-driven
+
+agentGoal: "Optimize returns while managing portfolio risk."
+valueGeneration: ["DecisionMaking", "Derisking"]
+executionMode: "Autonomous"
+decisionFrequency: "RealTime"
+agencyLevel: "Rule Constrained"
+learningCapability: "Reinforcement Learning"
+
+physicalEndpoint:
+  apiUrl: "https://api.tradingagent.com/v1"
+  authenticationMethod: "OAuth2"
+  supportedMethods: ["GET", "POST"]
+
 dependencies:
   - id: urn:data:market_data
     name: Market Data Feed
     description: Provides real-time market data.
-observability:
-  healthCheck: Automated monitoring
-  decisionLogs: Stored in event database
-  anomalyDetection: Enabled
+
+components:
+  - id: urn:component:finance:market_reasoner:1
+    name: Market Strategy Reasoner
+    kind: Reasoner
+    version: 1.0.0
+    description: AI-driven module analyzing trading strategies.
+  - id: urn:component:finance:trade_execution_tool:1
+    name: Trade Execution Tool
+    kind: Tool
+    version: 1.2.0
+    description: Executes stock trades via Interactive Brokers API.
+
+audit:
+  healthCheck: "https://api.tradingagent.com/v1/health"
+  decisionLogs: "https://api.tradingagent.com/v1/logs"
+  anomalyDetection: "https://api.tradingagent.com/v1/anomalies"
+
+knowledgeBases:
+  - id: urn:kb:finance:historical_trades
+    name: Historical Trade Database
+    sourceType: "Structured"
+    description: Stores past trade data for analysis.
+    endpoint: "https://datawarehouse.company.com/api"
+
 securityInfo:
-  visibility: Private
-  confidentiality: High
-  gdpr: true
-specific:
-  modelVersion: v2.0
-  optimizationFrequency: Daily
+  visibility: "Private"
+  confidentiality: "High"
+  gdprSensitive: true
 ```
 
-## How to Use
-### 1. Validate Descriptor
-Use **OpenAPI tools** to validate the descriptor format.
-```sh
-yaml-lint agent-descriptor.yaml
-```
 
-### 2. Generate Documentation
-Convert to **Swagger UI** or **Redoc** format:
-```sh
-docker run -p 8080:8080 -v $(pwd):/usr/share/nginx/html openapi/swagger-ui
-```
+# Agent Component Specification
 
-### 3. Publish on GitHub
-- Add `README.md` and `agent-descriptor.yaml` to a GitHub repository.
-- Enable GitHub Pages for automatic documentation generation.
+## Overview
+This specification defines the attributes of different **agent components** that can be used within an **agentic system**. These components allow for modular, reusable structures that enable the agent to interact with data, execute actions, and enforce policies.
+
+## Component Types
+The following component types are defined:
+
+### **1️⃣ Tool**
+A **Tool** is an external service or function that the agent interacts with. It executes commands, fetches data, or performs transformations.
+
+**Key Attributes:**
+- API-based execution.
+- Well-defined input/output formats.
+- May interact with external systems (e.g., stock exchanges, databases, or analytics services).
+
+```yaml
+id: urn:component:finance:trade_execution_tool:1
+name: Trade Execution Tool
+kind: Tool
+version: 1.2.0
+description: Executes stock trades via Interactive Brokers API.
+apiEndpoint: "https://api.tradingtool.com/v1/execute"
+inputFormat: "JSON"
+outputFormat: "JSON"
+```
 
 ---
 
-For more details, contribute to this repository or submit issues for improvements!
+### **2️⃣ LLM (Large Language Model)**
+An **LLM** is an AI-driven model that provides natural language understanding, reasoning, or generation capabilities.
+
+**Key Attributes:**
+- Utilizes models like **GPT-4, Claude, Gemini, Llama**.
+- May be **fine-tuned** for domain-specific knowledge.
+- Provides an **API endpoint** for interaction.
+
+```yaml
+id: urn:component:nlp:sentiment_analyzer:1
+name: Sentiment Analysis LLM
+kind: LLM
+version: 2.0.0
+description: Analyzes market sentiment from news articles.
+modelName: "GPT-4"
+fineTuned: true
+apiProvider: "OpenAI"
+```
+
+---
+
+### **3️⃣ Local Memory**
+A **Local Memory** component stores **temporary or long-term data** for agent reasoning and contextual awareness.
+
+**Key Attributes:**
+- Can be **ephemeral (in-memory)** or **persistent (Redis, SQLite, etc.)**.
+- Used for **context retention and decision-making**.
+
+```yaml
+id: urn:component:memory:session_cache:1
+name: Session Memory Cache
+kind: Memory
+version: 1.0.0
+description: Stores temporary trading session data.
+storageType: "Redis"
+persistence: false
+```
+
+---
+
+### **4️⃣ Guardrail**
+A **Guardrail** is a governance mechanism that **enforces constraints on the agent’s decisions**.
+
+**Key Attributes:**
+- Defines strict or flexible policies.
+- Supports **logging, blocking, or escalating violations**.
+- Ensures regulatory compliance (e.g., **GDPR, financial risk limits**).
+
+```yaml
+id: urn:component:compliance:trading_guardrail:1
+name: Risk Limit Guardrail
+kind: Guardrail
+version: 1.1.0
+description: Prevents trades exceeding 5% of portfolio value.
+enforcementLevel: "Hard"
+condition: "Prevent trade execution if risk exceeds 5%"
+action: "Block trade"
+```
+
+---
+
+### **5️⃣ Monitor**
+A **Monitor** observes the agent’s performance, logs events, and detects anomalies.
+
+**Key Attributes:**
+- Tracks **latency, error rates, anomalies**.
+- Sends **alerts when predefined thresholds are exceeded**.
+
+```yaml
+id: urn:component:monitoring:latency_monitor:1
+name: Latency Performance Monitor
+kind: Monitor
+version: 1.0.0
+description: Monitors latency for trade execution requests.
+metricsTracked: ["Latency", "Error Rate"]
+monitoringEndpoint: "https://monitoring.company.com/api"
+```
+
+---
+
+### **6️⃣ Orchestrator**
+An **Orchestrator** manages workflows, ensuring components execute in the correct sequence.
+
+**Key Attributes:**
+- Defines **execution order**.
+- Ensures dependencies are resolved before execution.
+
+```yaml
+id: urn:component:workflow:orchestrator:1
+name: Workflow Orchestrator
+kind: Orchestrator
+version: 1.3.0
+description: Controls the execution order of agent components.
+workflowManagement: "State-based workflow engine"
+executionOrder: ["Tool", "Memory", "LLM"]
+```
+
+
+---
+
+For improvements, open an issue or submit a pull request. 🚀
