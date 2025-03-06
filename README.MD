@@ -19,6 +19,7 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
 - `agentOwner` *(string)* – The primary owner of the agent.
 
 ### **Business Context & Goals**
+- `kind` *(string)* – Agent type to support different agentic system architectures.
 - `agentGoal` *(string)* – The primary goal the agent supports.
 - `valueGeneration` *(array)* – How this agent generates business value (DecisionMaking, Derisking, ProcessAutomation).
 - `executionMode` *(string)* – Defines how the agent operates (Autonomous, Human in the Loop).
@@ -64,7 +65,7 @@ agentOwner: john_doe@corp.com
 agentOwnerDisplayName: John Doe
 email: mailto:trading_team@corp.com
 status: ACTIVE
-
+kind: Single Agent
 agentGoal: "Optimize returns while managing portfolio risk."
 valueGeneration: ["DecisionMaking", "Derisking"]
 executionMode: "Autonomous"
@@ -203,26 +204,7 @@ action: "Block trade"
 
 ---
 
-### **5️⃣ Monitor**
-A **Monitor** observes the agent’s performance, logs events, and detects anomalies.
-
-**Key Attributes:**
-- Tracks **latency, error rates, anomalies**.
-- Sends **alerts when predefined thresholds are exceeded**.
-
-```yaml
-id: urn:component:monitoring:latency_monitor:1
-name: Latency Performance Monitor
-kind: Monitor
-version: 1.0.0
-description: Monitors latency for trade execution requests.
-metricsTracked: ["Latency", "Error Rate"]
-monitoringEndpoint: "https://monitoring.company.com/api"
-```
-
----
-
-### **6️⃣ Orchestrator**
+### **5️⃣  Orchestrator**
 An **Orchestrator** manages workflows, ensuring components execute in the correct sequence.
 
 **Key Attributes:**

@@ -56,6 +56,15 @@ components:
           type: string
           description: Deployment status of the agent.
           example: ACTIVE
+        kind:  
+          type: string
+          description: Agent type to support different agentic system architectures
+          example: Supervisor
+          enum:
+            - Supervisor
+            - Single Agent
+            - Multi Agent
+            - Router
         agentGoal:
           type: string
           description: optimize returns and risk
@@ -68,6 +77,7 @@ components:
             - DecisionMaking
             - Derisking
             - ProcessAutomation
+            - RAG
         executionMode:
           type: string
           description: Mode of execution (e.g., autonomous, human in the loop).

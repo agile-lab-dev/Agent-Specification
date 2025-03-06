@@ -24,13 +24,12 @@ components:
           example: Trade Execution Tool
         kind:
           type: string
-          description: Type of component (e.g., Tool, LLM, Memory, Guardrail, Monitor, Orchestrator).
+          description: Type of component (e.g., Tool, LLM, LocalMemory, Guardrail, Monitor, Orchestrator).
           enum:
             - Tool
             - LLM
-            - Memory
+            - LocalMemory
             - Guardrail
-            - Monitor
             - Orchestrator
           example: Tool
         version:
@@ -128,22 +127,6 @@ components:
               type: string
               description: Action taken when the guardrail is triggered (e.g., block, notify, log).
               example: "Block trade"
-
-    Monitor:
-      allOf:
-        - $ref: '#/components/schemas/AgentComponent'
-        - type: object
-          properties:
-            metricsTracked:
-              type: array
-              description: List of key metrics monitored.
-              items:
-                type: string
-              example: ["Latency", "Error Rate"]
-            monitoringEndpoint:
-              type: string
-              description: API endpoint providing monitoring data.
-              example: "https://monitoring.company.com/api"
 
     Orchestrator:
       allOf:
