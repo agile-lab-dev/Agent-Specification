@@ -240,7 +240,7 @@ components:
             - None
             - Reinforcement Learning
             - Fine Tuning
-        physicalEndpoint:
+        endpoint:
           type: object
           description: Defines where external systems or users can communicate with the agent.
           properties:
@@ -274,45 +274,8 @@ components:
           type: array
           description: Different components that make up the agent, including reasoners, tools, LLMs, and local memory.
           items:
-            type: object
-            properties:
-              id:
-                type: string
-                description: Unique identifier for the component.
-              name:
-                type: string
-                description: Human-readable name of the component.
-              kind:
-                type: string
-                description: Type of component (e.g, tool, LLM).
-                example: Tool
-                enum:
-                  - Tool
-                  - LLM
-                  - Memory
-                  - Guardrail
-              version:
-                type: string
-                description: Version of the component.
-              description:
-                type: string
-                description: Describes the purpose of the component.
-              dependencies:
-                type: array
-                description: Other components or external resources required.
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                    name:
-                      type: string
-                    description:
-                      type: string
-              specific:
-                type: object
-                description: Any domain-specific metadata related to the agent.
-                additionalProperties: true
+            $ref: "#/components/schemas/AgentComponent"
+          maxItems: 100
         audit:
           type: object
           description: Monitoring and logging details.
@@ -417,6 +380,10 @@ components:
                 type: string
               description:
                 type: string
+        endpoint:
+          type: string
+          description: MCP endpoint to interact with the component
+          example: https://api.tradingtool.com/v1/execute
         specific:
           type: object
           description: Additional metadata specific to the component.
@@ -427,10 +394,6 @@ components:
         - $ref: "#/components/schemas/AgentComponent"
         - type: object
           properties:
-            apiEndpoint:
-              type: string
-              description: API endpoint the tool interacts with.
-              example: https://api.tradingtool.com/v1/execute
             inputFormat:
               type: string
               description: Expected input format (e.g., JSON, XML, CSV).

@@ -1,0 +1,81 @@
+id: "urn:agent:healthcare:diagnostic_assistant:3"
+name: "Diagnostic Assistant"
+fullyQualifiedName: "healthcare.ai.diagnostic_assistant"
+description: "Autonomous agent supporting medical diagnostics and patient care recommendations."
+domain: "healthcare"
+version: "3.5.0"
+environment: "staging"
+agentOwner: "clinical-ai-team@healthcare.org"
+status: "ACTIVE"
+kind: "Single Agent"
+agentGoal: "Provide accurate diagnostic recommendations to clinicians while tracking patient outcomes."
+valueGeneration: "DecisionMaking"
+executionMode: "Human in the Loop"
+decisionFrequency: "Reactive"
+agencyLevel: "Workflow Constrained"
+learningCapability: "Fine Tuning"
+
+endpoint:
+  apiUrl: "https://api.healthcareai.org/diagnostics/v3"
+  authenticationMethod: "API Key"
+  supportedMethods:
+    - "POST"
+    - "GET"
+
+dependencies: []
+
+components:
+  - id: "urn:component:healthcare:symptom_checker:1"
+    name: "Symptom Checker"
+    kind: "Tool"
+    version: "1.2.0"
+    description: "Interactive tool collecting patient-reported symptoms to aid initial diagnosis."
+    dependencies: []
+    endpoint: "https://tools.healthcareai.org/symptomchecker"
+    specific:
+      inputFormat: "Natural Language"
+      outputFormat: "Structured JSON"
+
+  - id: "urn:component:healthcare:clinical_reasoning_llm:2"
+    name: "Clinical Reasoning LLM"
+    kind: "LLM"
+    version: "2.3.1"
+    description: "LLM specialized in clinical reasoning and differential diagnosis."
+    dependencies: []
+    endpoint: "https://llm.healthcareai.org/reasoning"
+    specific:
+      modelName: "MedGPT-XL"
+      fineTuned: true
+      apiProvider: "ClinicalAI Labs"
+
+  - id: "urn:component:healthcare:patient_history_memory:1"
+    name: "Patient History Memory"
+    kind: "LocalMemory"
+    version: "1.0.4"
+    description: "Persistent memory storage holding patient records and historical diagnostic data."
+    dependencies: []
+    endpoint: "https://storage.healthcareai.org/patientmemory"
+    specific:
+      storageType: "DocumentDB"
+      persistence: true
+
+audit:
+  healthCheck: "https://api.healthcareai.org/diagnostics/v3/health"
+  decisionLogs: "https://logs.healthcareai.org/decisions"
+  anomalyDetection: "https://monitoring.healthcareai.org/anomalies"
+
+knowledgeBases:
+  - id: "urn:kb:medical_guidelines"
+    name: "Medical Guidelines KB"
+    sourceType: "Structured"
+    description: "Officially approved clinical practice guidelines."
+    endpoint: "https://knowledge.healthcareai.org/guidelines"
+
+securityInfo:
+  visibility: "Private"
+  confidentiality: "Very High"
+  gdprSensitive: true
+
+specific:
+  regulatoryCompliance: "FDA Class II"
+  patientConsentRequired: true
