@@ -13,9 +13,9 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "openapi-core" },
-    { name = "pyyaml" },
-    { name = "requests" },
+    { name = "openapi-core", specifier = "==0.19.4" },
+    { name = "pyyaml", specifier = "==6.0.2" },
+    { name = "requests", specifier = "==2.32.3" },
 ]
 
 [[package]]

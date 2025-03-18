@@ -5,7 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "openapi-core",
-    "PyYAML",
-    "requests"
+    "openapi-core==0.19.4",
+    "PyYAML==6.0.2",
+    "requests==2.32.3"
 ]
