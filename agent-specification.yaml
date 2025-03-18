@@ -3,7 +3,138 @@ info:
   title: Agent Descriptor Specification
   description: Defines the attributes of an autonomous agent in an agentic system.
   version: 1.0.0
-
+  contact:
+    email: communityimpact@agilelab.it
+tags:
+  - name: agent
+    description: Operations related to agents
+  - name: component
+    description: Operations related to components
+servers:
+  - url: http://www.agents.com
+paths:
+  /agents/{agentId}:
+    get:
+      summary: Get agent by ID
+      operationId: getAgentById
+      description: Retrieve a specific agent by its unique ID
+      tags:
+        - agent
+      parameters:
+        - name: agentId
+          in: path
+          required: true
+          description: Unique identifier of the agent
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Agent details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentDescriptor"
+        "404":
+          description: Agent not found
+        "500":
+          description: Server error
+  /agents:
+    get:
+      summary: Get all agents
+      operationId: getAllAgents
+      description: Retrieve a list of all registered agents
+      tags:
+        - agent
+      responses:
+        "200":
+          description: A list of agents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AgentDescriptor"
+        "500":
+          description: Server error
+    post:
+      summary: Register a new agent
+      operationId: registerAgent
+      description: register a new agent
+      tags:
+        - agent
+      requestBody:
+        description: Agent object that needs to be added to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentDescriptor"
+      responses:
+        "201":
+          description: Agent registered successfully
+        "400":
+          description: Invalid input
+  /components/{componentId}:
+    get:
+      summary: Get component by ID
+      operationId: getComponentById
+      description: Retrieve a specific component by its unique ID
+      tags:
+        - component
+      parameters:
+        - name: componentId
+          in: path
+          required: true
+          description: Unique identifier of the component
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Component details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentComponent"
+        "404":
+          description: Component not found
+        "500":
+          description: Server error
+  /components:
+    get:
+      summary: Get all components
+      operationId: getAllComponents
+      description: Retrieve a list of all registered components
+      tags:
+        - component
+      responses:
+        "200":
+          description: A list of components
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AgentComponent"
+        "500":
+          description: Server error
+    post:
+      summary: Register a new component
+      operationId: registerComponent
+      description: Register a new component
+      tags:
+        - component
+      requestBody:
+        description: Component object that needs to be added to the system
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentComponent"
+      responses:
+        "201":
+          description: Component registered successfully
+        "400":
+          description: Invalid input
 components:
   schemas:
     AgentDescriptor:
@@ -56,7 +187,7 @@ components:
           type: string
           description: Deployment status of the agent.
           example: ACTIVE
-        kind:  
+        kind:
           type: string
           description: Agent type to support different agentic system architectures
           example: Supervisor
@@ -72,7 +203,7 @@ components:
         valueGeneration:
           type: string
           description: In which way this Agent generates value for the organization
-          example: ["DecisionMaking", "Derisking", "ProcessAutomation"]
+          example: "Derisking"
           enum:
             - DecisionMaking
             - Derisking
@@ -81,14 +212,14 @@ components:
         executionMode:
           type: string
           description: Mode of execution (e.g., autonomous, human in the loop).
-          example: ["Autonoumous","Human in the Loop"]
+          example: "Autonoumous"
           enum:
             - Autonoumous
             - Human in the Loop
         decisionFrequency:
           type: string
           description: How often the agent takes decisions
-          example: ["Reactive","Scheduled", "RealTime"]
+          example: "Scheduled"
           enum:
             - Reactive
             - Scheduled
@@ -96,7 +227,7 @@ components:
         agencyLevel:
           type: string
           description: How big is the agency for this agent
-          example: ["Total","Rule Constrained", "Workflow Constrained"]
+          example: "Rule Constrained"
           enum:
             - Total
             - Rule Constrained
@@ -104,7 +235,7 @@ components:
         learningCapability:
           type: string
           description: How the agent will learn on the way
-          example: ["None","Reinforcement Learning", "Fine Tuning"]
+          example: "Reinforcement Learning"
           enum:
             - None
             - Reinforcement Learning
@@ -156,10 +287,10 @@ components:
                 description: Type of component (e.g, tool, LLM).
                 example: Tool
                 enum:
-                - Tool
-                - LLM
-                - Memory
-                - Guardrail
+                  - Tool
+                  - LLM
+                  - Memory
+                  - Guardrail
               version:
                 type: string
                 description: Version of the component.
@@ -240,3 +371,136 @@ components:
           type: object
           description: Any domain-specific metadata related to the agent.
           additionalProperties: true
+    AgentComponent:
+      type: object
+      required:
+        - id
+        - name
+        - kind
+        - version
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the component.
+          example: urn:component:my_domain:tool:1
+        name:
+          type: string
+          description: Human-readable name of the component.
+          example: Trade Execution Tool
+        kind:
+          type: string
+          description: Type of component (e.g., Tool, LLM, LocalMemory, Guardrail, Monitor, Orchestrator).
+          enum:
+            - Tool
+            - LLM
+            - LocalMemory
+            - Guardrail
+            - Orchestrator
+          example: Tool
+        version:
+          type: string
+          description: Version of the component.
+          example: 1.0.0
+        description:
+          type: string
+          description: Describes the component's purpose and role.
+          example: Executes trades via Interactive Brokers API.
+        dependencies:
+          type: array
+          description: List of other components or data sources the component depends on.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              description:
+                type: string
+        specific:
+          type: object
+          description: Additional metadata specific to the component.
+          additionalProperties: true
+    # todo fix the following
+    Tool:
+      allOf:
+        - $ref: "#/components/schemas/AgentComponent"
+        - type: object
+          properties:
+            apiEndpoint:
+              type: string
+              description: API endpoint the tool interacts with.
+              example: https://api.tradingtool.com/v1/execute
+            inputFormat:
+              type: string
+              description: Expected input format (e.g., JSON, XML, CSV).
+              example: JSON
+            outputFormat:
+              type: string
+              description: Expected output format.
+              example: JSON
+    LLM:
+      allOf:
+        - $ref: "#/components/schemas/AgentComponent"
+        - type: object
+          properties:
+            modelName:
+              type: string
+              description: The name of the large language model used.
+              example: GPT-4
+            fineTuned:
+              type: boolean
+              description: Whether the model has been fine-tuned for a specific task.
+              example: true
+            apiProvider:
+              type: string
+              description: Provider of the model API.
+              example: OpenAI
+    LocalMemory:
+      allOf:
+        - $ref: "#/components/schemas/AgentComponent"
+        - type: object
+          properties:
+            storageType:
+              type: string
+              description: Type of memory storage (e.g., Redis, SQLite, In-Memory Cache).
+              example: Redis
+            persistence:
+              type: boolean
+              description: Whether the memory persists across agent runs.
+              example: true
+    Guardrail:
+      allOf:
+        - $ref: "#/components/schemas/AgentComponent"
+        - type: object
+          properties:
+            enforcementLevel:
+              type: string
+              enum:
+                - Hard
+                - Soft
+              description: Defines whether the rule is strictly enforced or flexible.
+              example: Hard
+            condition:
+              type: string
+              description: Business condition enforced by the guardrail.
+              example: "Prevent trade execution if risk exceeds 5%"
+            action:
+              type: string
+              description: Action taken when the guardrail is triggered (e.g., block, notify, log).
+              example: "Block trade"
+    Orchestrator:
+      allOf:
+        - $ref: "#/components/schemas/AgentComponent"
+        - type: object
+          properties:
+            workflowManagement:
+              type: string
+              description: Defines how the orchestrator manages workflows.
+              example: "State-based workflow engine"
+            executionOrder:
+              type: array
+              description: Defines the sequence of components executed.
+              items:
+                type: string
+              example: ["Tool", "Memory", "LLM"]
