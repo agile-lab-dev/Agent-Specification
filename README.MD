@@ -6,7 +6,7 @@ This repo hosts the specification for **Agent Descriptors**. These descriptors d
 
 ## Specification
 
-The specification is also available as [OpenAPI 3.0 endpoints](openapi.yaml), to create the foundation of an **Agent Descriptor Registry**.
+The specification is also available as [OpenAPI 3.0 endpoints](agent-specification.yaml), to create the foundation of an **Agent Descriptor Registry**.
 
 📄 **[Read the full Agent Descriptor Specification](spec.md)**
 
