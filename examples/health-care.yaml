@@ -12,7 +12,7 @@ agentGoal: "Provide accurate diagnostic recommendations to clinicians while trac
 targetUser: customer
 valueGeneration: "DecisionMaking"
 interactionMode: MultiTurnConversation
-decisionFrequency: "Reactive"
+runMode: "Reactive"
 agencyLevel: "ModelDrivenWorkflow"
 toolsUse: true
 learningCapability: "Fine Tuning"

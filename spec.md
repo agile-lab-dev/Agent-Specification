@@ -37,7 +37,10 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
   - `RequestResponse` a single request-response call
   - `MultiTurnConversation` a session with multi-turn conversation
   - `HumanInTheLoop` can ask human confirmation before taking an action
-- `decisionFrequency` *(string)* – How often the agent makes decisions (Reactive, Scheduled, RealTime).
+- `runMode` *(string)* – The modality how the agent execution is triggered. Values:
+  - `Reactive`: the agent is called by an event such an API request
+  - `Scheduled`: the agent runs at fixed scheduled times
+  - `RealTime`: the agent continously process a data flow in realtime
 - `agencyLevel` *(string)* – Defines the autonomy level of the agent. Values:
   - `StaticWorkflow`: the agent implemented as a static workflow that is orchestrated by a deterministic logic. For example a classic RAG assistant is implemented as a static workflow.
   - `ModelDrivenWorkflow`: the agent is implement as a workflow. The execution through the workflow is controlled by LLMs.
@@ -86,7 +89,7 @@ kind: Single Agent
 agentGoal: "Optimize returns while managing portfolio risk."
 valueGeneration: ["DecisionMaking", "Derisking"]
 executionMode: "Autonomous"
-decisionFrequency: "RealTime"
+runMode: "RealTime"
 agencyLevel: "Rule Constrained"
 learningCapability: "Reinforcement Learning"
 
