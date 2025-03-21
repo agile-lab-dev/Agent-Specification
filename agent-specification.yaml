@@ -200,6 +200,12 @@ components:
           type: string
           description: optimize returns and risk
           example: Try to keep the balance between a yield return of 10% and a portfolio volatility no more than 3%
+        targetUser:
+          type: string
+          description: The final user of the agent
+          enum:
+            - internal
+            - customer
         valueGeneration:
           type: string
           description: In which way this Agent generates value for the organization
