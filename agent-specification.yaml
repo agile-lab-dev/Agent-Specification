@@ -208,7 +208,7 @@ components:
             - DecisionMaking
             - Derisking
             - ProcessAutomation
-            - RAG
+            - InformationRetrieval
 
         executionMode:
           type: string
