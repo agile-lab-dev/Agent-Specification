@@ -1,5 +1,5 @@
 """
-This script uses an auto-generate pydantic model to validate a YAML Agent Descriptor.
+This script uses an auto-generated pydantic model to validate a YAML Agent Descriptor.
 
 When the descriptor is invalid the pydantic model throws a ValidationError exceptions listing
 all the specs violations (so fixing the errors is quick).
