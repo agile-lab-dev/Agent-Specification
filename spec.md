@@ -25,7 +25,11 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
 ### **Business Context & Goals**
 - `kind` *(string)* – Agent type to support different agentic system architectures.
 - `agentGoal` *(string)* – The primary goal the agent supports.
-- `valueGeneration` *(array)* – How this agent generates business value (DecisionMaking, Derisking, ProcessAutomation, InformationRetrieval).
+- `valueGeneration` *(array)* – How this agent generates business value. Values:
+  - DecisionMaking
+  - Derisking
+  - ProcessAutomation
+  - InformationRetrieval
 - `interactionMode` *(string)* – Defines how the agent operates. Values:
     - `RequestResponse` a single request-response call
     - `MultiTurnConversation` a session with multi-turn conversation
