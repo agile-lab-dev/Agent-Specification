@@ -210,13 +210,14 @@ components:
             - ProcessAutomation
             - InformationRetrieval
 
-        executionMode:
+        interactionMode:
           type: string
           description: Mode of execution (e.g., autonomous, human in the loop).
           example: "Autonoumous"
           enum:
-            - Autonoumous
-            - Human in the Loop
+            - RequestResponse
+            - MultiTurnConversation
+            - HumanInTheLoop
 
         decisionFrequency:
           type: string
@@ -232,9 +233,12 @@ components:
           description: How big is the agency for this agent
           example: "Rule Constrained"
           enum:
-            - Total
-            - Rule Constrained
-            - Workflow Constrained
+            - StaticWorkflow
+            - ModelDrivenWorkflow
+
+        toolsUse:
+          type: boolean
+          description: Define if the system can use tools in order to execute its task
 
         learningCapability:
           type: string
