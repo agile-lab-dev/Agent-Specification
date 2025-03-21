@@ -209,6 +209,7 @@ components:
             - Derisking
             - ProcessAutomation
             - RAG
+
         executionMode:
           type: string
           description: Mode of execution (e.g., autonomous, human in the loop).
@@ -216,6 +217,7 @@ components:
           enum:
             - Autonoumous
             - Human in the Loop
+
         decisionFrequency:
           type: string
           description: How often the agent takes decisions
@@ -224,6 +226,7 @@ components:
             - Reactive
             - Scheduled
             - RealTime
+
         agencyLevel:
           type: string
           description: How big is the agency for this agent
@@ -232,6 +235,7 @@ components:
             - Total
             - Rule Constrained
             - Workflow Constrained
+
         learningCapability:
           type: string
           description: How the agent will learn on the way
