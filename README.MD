@@ -4,6 +4,10 @@ This repo hosts the specification for **Agent Descriptors**. These descriptors d
 
 ![](images/arch.drawio.png)
 
+
+![](images/arch-components.png)
+
+
 ## Specification
 
 The specification is also available as [OpenAPI 3.0 endpoints](agent-specification.yaml), to create the foundation of an **Agent Descriptor Registry**.
