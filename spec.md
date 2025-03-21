@@ -39,7 +39,9 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
   - `HumanInTheLoop` can ask human confirmation before taking an action
 - `decisionFrequency` *(string)* – How often the agent makes decisions (Reactive, Scheduled, RealTime).
 - `agencyLevel` *(string)* – Defines the autonomy level of the agent. Values:
-  - `StaticWorkflow`: the application is a static state-machine where the state (Total, Rule Constrained, Workflow Constrained).
+  - `StaticWorkflow`: the agent implemented as a static workflow that is orchestrated by a deterministic logic. For example a classic RAG assistant is implemented as a static workflow.
+  - `ModelDrivenWorkflow`: the agent is implement as a workflow. The execution through the workflow is controlled by LLMs.
+- `toolsUse` *(string)* – Define if the system can use tools in order to execute its task. Values: true/false.
 - `learningCapability` *(string)* – Learning approach (None, Reinforcement Learning, Fine Tuning).
 
 ### **Technical Configuration**
