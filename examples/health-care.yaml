@@ -12,7 +12,7 @@ agentGoal: "Provide accurate diagnostic recommendations to clinicians while trac
 valueGeneration: "DecisionMaking"
 executionMode: "Human in the Loop"
 decisionFrequency: "Reactive"
-agencyLevel: "Workflow Constrained"
+agencyLevel: "ModelDrivenWorkflow"
 learningCapability: "Fine Tuning"
 
 endpoint:
