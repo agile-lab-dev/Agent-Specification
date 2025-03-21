@@ -29,10 +29,10 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
   - `internal` the agent is aimed at users internal to the company
   - `customer` the agent is exposed in a customer-facing function
 - `valueGeneration` *(array)* – How this agent generates business value. Values:
-  - DecisionMaking
-  - Derisking
-  - ProcessAutomation
-  - InformationRetrieval
+  - `DecisionMaking`: help in supporting decisions
+  - `Derisking`: reduce risk in decision making
+  - `ProcessAutomation`: automate or improve automation of a business process
+  - `InformationRetrieval`: helps the user to retrieve informations from a Knowledge Base
 - `interactionMode` *(string)* – Defines how the agent operates. Values:
   - `RequestResponse` a single request-response call
   - `MultiTurnConversation` a session with multi-turn conversation
