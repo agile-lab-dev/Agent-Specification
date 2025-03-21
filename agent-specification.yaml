@@ -244,6 +244,7 @@ components:
             - None
             - Reinforcement Learning
             - Fine Tuning
+
         endpoint:
           type: object
           description: Defines where external systems or users can communicate with the agent.
