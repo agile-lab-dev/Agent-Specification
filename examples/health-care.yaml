@@ -9,10 +9,12 @@ agentOwner: "clinical-ai-team@healthcare.org"
 status: "ACTIVE"
 kind: "Single Agent"
 agentGoal: "Provide accurate diagnostic recommendations to clinicians while tracking patient outcomes."
+targetUser: customer
 valueGeneration: "DecisionMaking"
-executionMode: "Human in the Loop"
+interactionMode: MultiTurnConversation
 decisionFrequency: "Reactive"
 agencyLevel: "ModelDrivenWorkflow"
+toolsUse: true
 learningCapability: "Fine Tuning"
 
 endpoint:
