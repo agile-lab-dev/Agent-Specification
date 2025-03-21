@@ -225,9 +225,9 @@ components:
             - MultiTurnConversation
             - HumanInTheLoop
 
-        decisionFrequency:
+        runMode:
           type: string
-          description: How often the agent takes decisions
+          description: How the agent execution is triggered
           example: "Scheduled"
           enum:
             - Reactive
