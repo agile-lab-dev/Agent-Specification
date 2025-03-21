@@ -26,7 +26,10 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
 - `kind` *(string)* – Agent type to support different agentic system architectures.
 - `agentGoal` *(string)* – The primary goal the agent supports.
 - `valueGeneration` *(array)* – How this agent generates business value (DecisionMaking, Derisking, ProcessAutomation, InformationRetrieval).
-- `executionMode` *(string)* – Defines how the agent operates (Autonomous, Human in the Loop).
+- `interactionMode` *(string)* – Defines how the agent operates. Values:
+    - `RequestResponse` a single request-response call
+    - `MultiTurnConversation` a session with multi-turn conversation
+    - `HumanInTheLoop` can ask human confirmation before taking an action
 - `decisionFrequency` *(string)* – How often the agent makes decisions (Reactive, Scheduled, RealTime).
 - `agencyLevel` *(string)* – Defines the autonomy level of the agent (Total, Rule Constrained, Workflow Constrained).
 - `learningCapability` *(string)* – Learning approach (None, Reinforcement Learning, Fine Tuning).
