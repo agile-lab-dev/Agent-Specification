@@ -1,6 +1,11 @@
 
 ## Overview
-This specification defines the attributes of an **autonomous agent** in an agentic system. This specification aims to enable **consistent definition, governance, and observability** of AI-driven agents in a structured format.
+This specification defines the attributes of an **agentic system**,
+a software system designed to carry out a task (objective) in with varying levels of autonomy.
+The **agentic system** encompasses LLM-enabled applications with varying levels of agency.
+Agency is expressed one or more of the following properties: planning, self-reflection, tool use.
+
+This specification aims to enable **consistent definition, governance, and observability** of AI-driven agents in a structured format.
 
 ## Schema Structure
 The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy documentation and validation.
@@ -20,7 +25,7 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
 ### **Business Context & Goals**
 - `kind` *(string)* – Agent type to support different agentic system architectures.
 - `agentGoal` *(string)* – The primary goal the agent supports.
-- `valueGeneration` *(array)* – How this agent generates business value (DecisionMaking, Derisking, ProcessAutomation).
+- `valueGeneration` *(array)* – How this agent generates business value (DecisionMaking, Derisking, ProcessAutomation, InformationRetrieval).
 - `executionMode` *(string)* – Defines how the agent operates (Autonomous, Human in the Loop).
 - `decisionFrequency` *(string)* – How often the agent makes decisions (Reactive, Scheduled, RealTime).
 - `agencyLevel` *(string)* – Defines the autonomy level of the agent (Total, Rule Constrained, Workflow Constrained).
