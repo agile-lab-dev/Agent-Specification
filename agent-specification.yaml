@@ -200,6 +200,12 @@ components:
           type: string
           description: optimize returns and risk
           example: Try to keep the balance between a yield return of 10% and a portfolio volatility no more than 3%
+        targetUser:
+          type: string
+          description: The final user of the agent
+          enum:
+            - internal
+            - customer
         valueGeneration:
           type: string
           description: In which way this Agent generates value for the organization
@@ -208,30 +214,38 @@ components:
             - DecisionMaking
             - Derisking
             - ProcessAutomation
-            - RAG
-        executionMode:
+            - InformationRetrieval
+
+        interactionMode:
           type: string
           description: Mode of execution (e.g., autonomous, human in the loop).
           example: "Autonoumous"
           enum:
-            - Autonoumous
-            - Human in the Loop
-        decisionFrequency:
+            - RequestResponse
+            - MultiTurnConversation
+            - HumanInTheLoop
+
+        runMode:
           type: string
-          description: How often the agent takes decisions
+          description: How the agent execution is triggered
           example: "Scheduled"
           enum:
             - Reactive
             - Scheduled
             - RealTime
+
         agencyLevel:
           type: string
           description: How big is the agency for this agent
           example: "Rule Constrained"
           enum:
-            - Total
-            - Rule Constrained
-            - Workflow Constrained
+            - StaticWorkflow
+            - ModelDrivenWorkflow
+
+        toolsUse:
+          type: boolean
+          description: Define if the system can use tools in order to execute its task
+
         learningCapability:
           type: string
           description: How the agent will learn on the way
@@ -240,6 +254,7 @@ components:
             - None
             - Reinforcement Learning
             - Fine Tuning
+
         endpoint:
           type: object
           description: Defines where external systems or users can communicate with the agent.
