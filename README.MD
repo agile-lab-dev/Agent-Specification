@@ -18,7 +18,7 @@ Examples of an agent can be found in the [examples](examples) directory.
 
 1. Fist [Install](https://docs.astral.sh/uv/getting-started/installation/) `uv` package manager.
 
-2. Second run this commant for execute the validator:
+2. Second run this command to execute the validation:
 
 ```python
 uv run validate_examples.py
