@@ -20,12 +20,12 @@ Examples of an agent can be found in the [examples](examples) directory.
 
 ## How to run validation
 
-1. First [Install](https://docs.astral.sh/uv/getting-started/installation/) `uv` package manager.
+1. [Install](https://docs.astral.sh/uv/getting-started/installation/) `uv` package manager.
 
-2. Second run this command to execute the validation:
+2. Run this command to execute the validation:
 
 ```python
-uv run validate_examples.py
+sbin/validate_model.sh
 ```
 
 ## Roadmap
