@@ -1,6 +1,11 @@
 
 ## Overview
-This specification defines the attributes of an **autonomous agent** in an agentic system. This specification aims to enable **consistent definition, governance, and observability** of AI-driven agents in a structured format.
+This specification defines the attributes of an **agentic system**,
+a software system designed to carry out a task (objective) in with varying levels of autonomy.
+The **agentic system** encompasses LLM-enabled applications with varying levels of agency.
+Agency is expressed one or more of the following properties: planning, self-reflection, tool use.
+
+This specification aims to enable **consistent definition, governance, and observability** of AI-driven agents in a structured format.
 
 ## Schema Structure
 The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy documentation and validation.
@@ -20,10 +25,26 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
 ### **Business Context & Goals**
 - `kind` *(string)* – Agent type to support different agentic system architectures.
 - `agentGoal` *(string)* – The primary goal the agent supports.
-- `valueGeneration` *(array)* – How this agent generates business value (DecisionMaking, Derisking, ProcessAutomation).
-- `executionMode` *(string)* – Defines how the agent operates (Autonomous, Human in the Loop).
-- `decisionFrequency` *(string)* – How often the agent makes decisions (Reactive, Scheduled, RealTime).
-- `agencyLevel` *(string)* – Defines the autonomy level of the agent (Total, Rule Constrained, Workflow Constrained).
+- `targetUser` *(string)* the final user of the agent
+  - `internal` the agent is aimed at users internal to the company
+  - `customer` the agent is exposed in a customer-facing function
+- `valueGeneration` *(array)* – How this agent generates business value. Values:
+  - `DecisionMaking`: help in supporting decisions
+  - `Derisking`: reduce risk in decision making
+  - `ProcessAutomation`: automate or improve automation of a business process
+  - `InformationRetrieval`: helps the user to retrieve informations from a Knowledge Base
+- `interactionMode` *(string)* – Defines how the agent operates. Values:
+  - `RequestResponse` a single request-response call
+  - `MultiTurnConversation` a session with multi-turn conversation
+  - `HumanInTheLoop` can ask human confirmation before taking an action
+- `runMode` *(string)* – The modality how the agent execution is triggered. Values:
+  - `Reactive`: the agent is called by an event such an API request
+  - `Scheduled`: the agent runs at fixed scheduled times
+  - `RealTime`: the agent continously process a data flow in realtime
+- `agencyLevel` *(string)* – Defines the autonomy level of the agent. Values:
+  - `StaticWorkflow`: the agent implemented as a static workflow that is orchestrated by a deterministic logic. For example a classic RAG assistant is implemented as a static workflow.
+  - `ModelDrivenWorkflow`: the agent is implement as a workflow. The execution through the workflow is controlled by LLMs.
+- `toolsUse` *(string)* – Define if the system can use tools in order to execute its task. Values: true/false.
 - `learningCapability` *(string)* – Learning approach (None, Reinforcement Learning, Fine Tuning).
 
 ### **Technical Configuration**
@@ -68,7 +89,7 @@ kind: Single Agent
 agentGoal: "Optimize returns while managing portfolio risk."
 valueGeneration: ["DecisionMaking", "Derisking"]
 executionMode: "Autonomous"
-decisionFrequency: "RealTime"
+runMode: "RealTime"
 agencyLevel: "Rule Constrained"
 learningCapability: "Reinforcement Learning"
 
