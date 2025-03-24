@@ -22,10 +22,16 @@ Examples of an agent can be found in the [examples](examples) directory.
 
 1. [Install](https://docs.astral.sh/uv/getting-started/installation/) `uv` package manager.
 
-2. Run this command to execute the validation:
+2. Run this command from the repo's root folder to validate the example descriptor:
 
-```python
-sbin/validate_model.sh
+```sh
+./scripts/validate_model.sh
+```
+
+If you change the Agent Descriptor Specs  (`agent-specifications.yaml`), you need to regenerate the pydantic models used for validation with:
+
+```sh
+./scripts/generate_model.sh
 ```
 
 ## Roadmap
