@@ -1,0 +1,21 @@
+name: Pull Request
+on:
+  pull_request:
+    branches-ignore: []
+  push:
+    branches:
+      - main
+jobs:
+  validate_model:
+    name: python
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5.4.0
+      - name: Set up Python
+        uses: actions/setup-python@v5.5.0
+        with:
+          python-version-file: "pyproject.toml"
+      - name: Validate examples
+        run: scripts/validate_model.sh
