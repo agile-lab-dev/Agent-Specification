@@ -12,10 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install uv
-        uses: astral-sh/setup-uv@v5.4.0
-      - name: Set up Python
-        uses: actions/setup-python@v5.5.0
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version-file: "pyproject.toml"
+          # Install a specific version of uv.
+          version: "0.6.10"
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
       - name: Validate examples
         run: scripts/validate_model.sh
