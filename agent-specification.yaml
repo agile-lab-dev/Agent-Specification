@@ -220,11 +220,12 @@ components:
         interactionMode:
           type: string
           description: Mode of execution (e.g., autonomous, human in the loop).
-          examples: ["Autonoumous"]
+          examples: ["Autonomous"]
           enum:
             - RequestResponse
             - MultiTurnConversation
             - HumanInTheLoop
+            - Autonomous
 
         runMode:
           type: string
