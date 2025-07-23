@@ -37,6 +37,7 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
   - `RequestResponse` a single request-response call
   - `MultiTurnConversation` a session with multi-turn conversation
   - `HumanInTheLoop` can ask human confirmation before taking an action
+  - `Autonomous` acts independently without requiring human intervention
 - `runMode` *(string)* – The modality how the agent execution is triggered. Values:
   - `Reactive`: the agent is called by an event such an API request
   - `Scheduled`: the agent runs at fixed scheduled times
@@ -88,7 +89,7 @@ status: ACTIVE
 kind: Single Agent
 agentGoal: "Optimize returns while managing portfolio risk."
 valueGeneration: ["DecisionMaking", "Derisking"]
-executionMode: "Autonomous"
+interactionMode: "Autonomous"
 runMode: "RealTime"
 agencyLevel: "Rule Constrained"
 learningCapability: "Reinforcement Learning"
