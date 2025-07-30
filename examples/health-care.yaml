@@ -16,6 +16,8 @@ runMode: "Reactive"
 agencyLevel: "ModelDrivenWorkflow"
 toolsUse: true
 learningCapability: "Fine Tuning"
+supportedInput: ["text"]
+supportedOutput: ["text"]
 
 endpoint:
   apiUrl: "https://api.healthcareai.org/diagnostics/v3"
