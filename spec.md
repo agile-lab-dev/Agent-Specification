@@ -91,7 +91,7 @@ agentGoal: "Optimize returns while managing portfolio risk."
 valueGeneration: ["DecisionMaking", "Derisking"]
 interactionMode: "Autonomous"
 runMode: "RealTime"
-agencyLevel: "Rule Constrained"
+agencyLevel: "StaticWorkflow"
 learningCapability: "Reinforcement Learning"
 
 physicalEndpoint:
