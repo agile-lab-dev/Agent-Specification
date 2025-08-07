@@ -47,6 +47,8 @@ The agent descriptor follows an **OpenAPI 3.0-based** schema to enable easy docu
   - `ModelDrivenWorkflow`: the agent is implement as a workflow. The execution through the workflow is controlled by LLMs.
 - `toolsUse` *(string)* – Define if the system can use tools in order to execute its task. Values: true/false.
 - `learningCapability` *(string)* – Learning approach (None, Reinforcement Learning, Fine Tuning).
+- `supportedInput` *(array)* – List of supported output formats or content types (e.g., text, images, video, files).
+- `supportedOutput` *(array)* – List of supported output formats or content types (e.g., text, images, video, files)
 
 ### **Technical Configuration**
 - `physicalEndpoint` *(object)* – Defines where and how external systems interact with the agent.
@@ -93,6 +95,8 @@ interactionMode: "Autonomous"
 runMode: "RealTime"
 agencyLevel: "StaticWorkflow"
 learningCapability: "Reinforcement Learning"
+supportedInput: ["text"]
+supportedOutput: ["text"]
 
 physicalEndpoint:
   apiUrl: "https://api.tradingagent.com/v1"

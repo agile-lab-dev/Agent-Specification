@@ -257,6 +257,22 @@ components:
             - Reinforcement Learning
             - Fine Tuning
 
+        supportedInput:
+          type: array
+          description: List of supported input formats or content types.
+          items:
+            type: string
+            enum: [text, images, video, files]
+          examples: [["text", "images"]]
+
+        supportedOutput:
+          type: array
+          description: List of supported output formats or content types.
+          items:
+            type: string
+            enum: [text, images, video, files]
+          examples: [["text", "files"]]
+
         endpoint:
           type: object
           description: Defines where external systems or users can communicate with the agent.
